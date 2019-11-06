@@ -1,11 +1,12 @@
 // Styling for the team section
 .team-member {
-  margin-bottom: 50px;
+  margin-bottom: 25px;
   text-align: center;
   img {
     width: 225px;
     height: 225px;
     border: 7px solid fade-out($black, 0.9);
+    margin-bottom: 5px;
   }
   h4 {
     margin-top: 25px;
@@ -14,5 +15,9 @@
   }
   p {
     margin-top: 0;
+    text-align: left;
+  }
+  a.btn {
+    margin-top: 16px;
   }
 }

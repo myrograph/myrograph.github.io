@@ -11,8 +11,7 @@ body {
 
 @media (min-width: 768px) {
   body,
-  .section-subheading,
-  .portfolio-caption {
+  .section-subheading {
     font-size: 20px !important;
   }
 }
@@ -596,7 +595,7 @@ header.masthead .intro-text .intro-links .intro-link:hover {
 }
 
 .team-member {
-  margin-bottom: 50px;
+  margin-bottom: 25px;
   text-align: center;
 }
 
@@ -604,6 +603,7 @@ header.masthead .intro-text .intro-links .intro-link:hover {
   width: 225px;
   height: 225px;
   border: 7px solid rgba(0, 0, 0, 0.1);
+  margin-bottom: 5px;
 }
 
 .team-member h4 {
@@ -614,6 +614,11 @@ header.masthead .intro-text .intro-links .intro-link:hover {
 
 .team-member p {
   margin-top: 0;
+  text-align: left;
+}
+
+.team-member a.btn {
+  margin-top: 16px;
 }
 
 section#contact {
@@ -625,6 +630,10 @@ section#contact {
 
 section#contact .section-heading {
   color: #fff;
+}
+
+section#contact .section-subheading {
+  color: #dee2e6;
 }
 
 section#contact .form-group {
