@@ -4,6 +4,14 @@ body {
   @include body-font;
 }
 
+@media(min-width:768px) {
+  body,
+  .section-subheading,
+  .portfolio-caption {
+      font-size: 20px !important;
+  }
+}
+
 p {
   line-height: 1.75;
 }
