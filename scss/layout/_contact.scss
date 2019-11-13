@@ -7,8 +7,13 @@ section#contact {
   .section-heading {
     color: $white;
   }
+  p,
   .section-subheading {
     color:$gray-300;
+  }
+  .fas {
+    width:40px;
+    text-align: center;
   }
   .form-group {
     margin-bottom: 25px;
@@ -47,4 +52,5 @@ section#contact {
     color: $gray-400;
     @include heading-font;
   }
+  
 }

@@ -1,18 +1,26 @@
 // Button Styles
+.btn-holder {
+  margin: auto;
+  &:hover .btn {
+    transform: rotate(-4deg);
+  }
+
+}
+
 .btn {
   @include heading-font;
   font-weight: 700;
+  font-size: 18px;
   margin:auto;
+  padding: 0;
+  border-radius: 0;
+  border: 0;
 }
 
 .btn-xl {
-  font-size: 18px;
-  padding: 20px 40px;
-}
-
-.btn-l {
-  font-size: 16px;
-  padding: 12px 30px;
+  font-size: 20px;
+  //padding: 20px 40px;
+  padding: 0;
 }
 
 .btn-primary {
@@ -21,12 +29,12 @@
   &:active,
   &:focus,
   &:hover {
-    background-color: darken($primary, 7.5%) !important;
-    border-color: darken($primary, 7.5%) !important;
+    background-color: $primary;
+    //border-color: darken($primary, 7.5%) !important;
     color: white;
   }
   &:active,
   &:focus {
-    box-shadow: 0 0 0 0.2rem rgba(254, 209, 55,.5) !important;
+    //box-shadow: 0 0 0 0.2rem rgba(254, 209, 55,.5) !important;
   }
 }
