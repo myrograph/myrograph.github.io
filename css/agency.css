@@ -86,6 +86,7 @@ h6 {
 
 ::selection {
   background: #16ee16;
+  color: #101010;
   text-shadow: none;
 }
 
@@ -158,17 +159,17 @@ img::-moz-selection {
   border: 1.5px solid rgba(0, 0, 0, 0);
 }
 
-.btn-primary:active, .btn-primary:focus, .btn-primary:hover {
+.btn-primary:hover {
   background-color: rgba(0, 0, 0, 0);
   transition: none;
   border-color: #0fcf0f !important;
-  color: #0fcf0f;
+  color: #0fcf0f !important;
   padding: 0 5px;
 }
 
 .btn-primary:active, .btn-primary:focus {
-  color: black;
-  background-color: #16ee16;
+  color: black !important;
+  background-color: #16ee16 !important;
   border: 0px solid #16ee16;
   box-shadow: 0 0 0 0rem rgba(0, 0, 0, 0) !important;
 }
@@ -667,7 +668,7 @@ header.masthead .intro-text .intro-links .intro-link:hover {
   text-align: left;
 }
 
-.team-member a.btn {
+.team-member .btn-holder {
   margin-top: 16px;
 }
 

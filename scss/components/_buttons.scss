@@ -52,19 +52,17 @@
   border-color: $primary;
   transition: none;
   border:1.5px solid rgba(0,0,0,0);
-  &:active,
-  &:focus,
   &:hover {
     background-color: rgba(0,0,0,0);
     transition: none;
     border-color: darken($primary, 7.5%) !important;
-    color: darken($primary, 7.5%);
+    color: darken($primary, 7.5%) !important;
     padding:0 5px;
   }
   &:active,
   &:focus {
-    color: black;
-    background-color: $primary;
+    color: black !important;
+    background-color: $primary !important;
     border: 0px solid $primary;
     box-shadow: 0 0 0 0rem rgba(0,0,0,0) !important;
   }
