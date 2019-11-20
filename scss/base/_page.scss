@@ -2,6 +2,11 @@
 body {
   overflow-x: hidden;
   @include body-font;
+  background-color: #101010;
+}
+
+section {
+  background-color: white;
 }
 
 @media(min-width:768px) {
@@ -26,7 +31,7 @@ a {
   }
 }
 
-ul:not(.list-inline); {
+ul:not(.list-inline) {
   margin-top: 0 !important;
 }
 

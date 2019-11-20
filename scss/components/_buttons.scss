@@ -6,6 +6,30 @@
   }
 
 }
+/*
+.btn-bg-1,
+.btn-bg-2,
+.btn-bg-3 {
+  position: absolute;
+  width:104%;
+  height:120%;
+  left:-2%;
+  right: -2%;
+  top:-10%;
+  z-index:-1000;
+  border-width: 20px;
+  background-blend-mode: multiply;
+}
+*/
+.btn-bg-1 {
+  background-color: #25ffff;
+}
+.btn-bg-2 {
+  background-color: #ffe91b;
+}
+.btn-bg-3 {
+  background-color: darken($primary, 45%);
+}
 
 .btn {
   @include heading-font;
@@ -26,15 +50,22 @@
 .btn-primary {
   background-color: $primary;
   border-color: $primary;
+  transition: none;
+  border:1.5px solid rgba(0,0,0,0);
   &:active,
   &:focus,
   &:hover {
-    background-color: $primary;
-    //border-color: darken($primary, 7.5%) !important;
-    color: white;
+    background-color: rgba(0,0,0,0);
+    transition: none;
+    border-color: darken($primary, 7.5%) !important;
+    color: darken($primary, 7.5%);
+    padding:0 5px;
   }
   &:active,
   &:focus {
-    //box-shadow: 0 0 0 0.2rem rgba(254, 209, 55,.5) !important;
+    color: black;
+    background-color: $primary;
+    border: 0px solid $primary;
+    box-shadow: 0 0 0 0rem rgba(0,0,0,0) !important;
   }
 }
