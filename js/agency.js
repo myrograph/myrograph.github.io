@@ -8,24 +8,26 @@
       target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
       if (target.length) {
         $('html, body').animate({
-          scrollTop: (target.offset().top - 54)
-        }, 1000, "easeInOutExpo");
+          scrollTop: (target.offset().top)
+        }, 500, "easeInOutCubic");
         return false;
       }
     }
   });
 
+  /*
   // Closes responsive menu when a scroll trigger link is clicked
   $('.js-scroll-trigger').click(function() {
     $('.navbar-collapse').collapse('hide');
   });
-
+  
+  
   // Activate scrollspy to add active class to navbar items on scroll
   $('body').scrollspy({
     target: '#mainNav',
     offset: 56
   });
-
+  
   // Collapse Navbar
   var navbarCollapse = function() {
     if ($("#mainNav").offset().top > 100) {
@@ -38,5 +40,12 @@
   navbarCollapse();
   // Collapse the navbar when page is scrolled
   $(window).scroll(navbarCollapse);
+  */  
+
+  $(document).keyup(function(e) {
+       if (e.key === "Escape" &&  document.querySelector('#project-nav a') != null) {
+        window.location = document.querySelector('#project-nav a') 
+      }
+  });
 
 })(jQuery); // End of use strict

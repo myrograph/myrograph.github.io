@@ -18,8 +18,10 @@
         transition: all ease 0.5s; */
         opacity: 0;
         background: fade-out(darken($primary,20%), .8);
+        transition: all 800ms ease;
         &:hover {
           opacity: 1;
+          transition: all 50ms ease;
           +.img-fluid {
             //filter: url('../svg/filters.svg#monochrome');
             // todo : use custom monochrome filter;

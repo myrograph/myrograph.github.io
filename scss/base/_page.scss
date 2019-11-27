@@ -9,6 +9,20 @@ section {
   background-color: white;
 }
 
+#more-projects {
+  transition: all 500ms ease-in-out;
+  max-height: 10000px;
+  pointer-events: auto;
+}
+
+.my-hidden {
+  max-height: 0px !important;
+  //visibility: hidden;
+  opacity: 0; /* For Internet Explorer 8 and earlier */
+  pointer-events: none !important;
+}
+
+
 @media(min-width:768px) {
   body,
   .section-subheading {
@@ -23,11 +37,12 @@ p {
 a {
   color: $primary;
   font-size: 110%;
+  transition: all 600ms ease;
   &:hover {
     background-color: $primary; 
     color: $white;
     text-decoration: none !important;
-
+    transition: all 50ms ease;
   }
 }
 

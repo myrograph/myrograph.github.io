@@ -14,6 +14,19 @@ section {
   background-color: white;
 }
 
+#more-projects {
+  transition: all 500ms ease-in-out;
+  max-height: 10000px;
+  pointer-events: auto;
+}
+
+.my-hidden {
+  max-height: 0px !important;
+  opacity: 0;
+  /* For Internet Explorer 8 and earlier */
+  pointer-events: none !important;
+}
+
 @media (min-width: 768px) {
   body,
   .section-subheading {
@@ -28,12 +41,14 @@ p {
 a {
   color: #16ee16;
   font-size: 110%;
+  transition: all 600ms ease;
 }
 
 a:hover {
   background-color: #16ee16;
   color: #fff;
   text-decoration: none !important;
+  transition: all 50ms ease;
 }
 
 ul:not(.list-inline) {
@@ -157,6 +172,7 @@ img::-moz-selection {
   border-color: #16ee16;
   transition: none;
   border: 1.5px solid rgba(0, 0, 0, 0);
+  transition: all 200ms ease;
 }
 
 .btn-primary:hover {
@@ -165,12 +181,12 @@ img::-moz-selection {
   border-color: #0fcf0f !important;
   color: #0fcf0f !important;
   padding: 0 5px;
+  transition: all 50ms ease;
 }
 
 .btn-primary:active, .btn-primary:focus {
   color: black !important;
   background-color: #16ee16 !important;
-  border: 0px solid #16ee16;
   box-shadow: 0 0 0 0rem rgba(0, 0, 0, 0) !important;
 }
 
@@ -283,7 +299,7 @@ header.masthead .intro-text .intro-heading {
 }
 
 header.masthead .intro-text .intro-links {
-  margin-bottom: 100px;
+  margin-bottom: 130px;
 }
 
 header.masthead .intro-text .intro-links .intro-link {
@@ -347,10 +363,12 @@ header.masthead .intro-text .intro-links .intro-link:hover {
         transition: all ease 0.5s; */
   opacity: 0;
   background: rgba(11, 147, 11, 0.2);
+  transition: all 800ms ease;
 }
 
 #portfolio .portfolio-item .portfolio-link .portfolio-hover:hover {
   opacity: 1;
+  transition: all 50ms ease;
 }
 
 #portfolio .portfolio-item .portfolio-link .portfolio-hover:hover + .img-fluid {
@@ -688,7 +706,8 @@ section#contact .section-subheading {
   color: #dee2e6;
 }
 
-section#contact .fas {
+section#contact .fas,
+section#contact .fab {
   width: 40px;
   text-align: center;
 }
@@ -740,16 +759,18 @@ section#contact :-ms-input-placeholder {
 }
 
 .footer {
+  color: white;
   padding: 25px 0;
   text-align: center;
   background-color: #212529;
+  font-size: 90%;
 }
 
-.footer span.copyright {
-  font-size: 90%;
-  line-height: 40px;
+.footer span {
+  font-family: 'Droid Serif';
+  font-style: italic;
   text-transform: none;
-  font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  color: #dee2e6;
 }
 
 .footer ul.quicklinks {
@@ -758,6 +779,10 @@ section#contact :-ms-input-placeholder {
   margin-bottom: 0;
   text-transform: none;
   font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+}
+
+.footer a {
+  margin: 0 20px;
 }
 
 ul.social-buttons {

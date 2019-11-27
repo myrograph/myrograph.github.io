@@ -1,13 +1,16 @@
 // Styling for the footer
 .footer {
+  color: white;
   padding: 25px 0;
   text-align: center;
   background-color: $gray-900;
-  span.copyright {
-    font-size: 90%;
-    line-height: 40px;
-    text-transform: none;
-    @include heading-font;
+  font-size: 90%;
+  span {
+  font-family: 'Droid Serif';
+  font-style: italic;
+  text-transform: none;
+  color: $gray-300;
+    //@include heading-font;
   }
   ul.quicklinks {
     font-size: 90%;
@@ -15,6 +18,9 @@
     margin-bottom: 0;
     text-transform: none;
     @include heading-font;
+  }
+  a {
+    margin: 0 20px;
   }
 }
 
