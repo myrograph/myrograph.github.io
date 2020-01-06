@@ -19,7 +19,6 @@
 
 document.querySelector("#more-projects-btn").addEventListener("click", function(e) {
   document.querySelector("#more-projects").classList.toggle("my-hidden")
-  console.log(e.target.innerHTML)
   if (e.target.innerHTML == "See More") {
     e.target.innerHTML = "See Less"
     return

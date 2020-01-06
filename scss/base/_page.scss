@@ -17,11 +17,9 @@ section {
 
 .my-hidden {
   max-height: 0px !important;
-  //visibility: hidden;
   opacity: 0; /* For Internet Explorer 8 and earlier */
   pointer-events: none !important;
 }
-
 
 @media(min-width:768px) {
   body,
