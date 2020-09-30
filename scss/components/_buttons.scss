@@ -71,3 +71,38 @@
     box-shadow: 0 0 0 0rem rgba(0,0,0,0) !important;
   }
 }
+
+.btn-inverted {
+  @include heading-font;
+  font-weight: 700;
+  font-size: 18px;
+  margin:auto;
+  margin-left: 8px;
+  padding:0 5px;
+  border-radius: 0;
+  border: 0;
+
+  background-color: rgba(0,0,0,0);
+  border-color: darken($primary, 7.5%) !important;
+  transition: none;
+  border:1.5px solid rgba(0,0,0,0);
+  transition: all 200ms ease;
+
+  color: darken($primary, 7.5%) !important;
+
+  &:hover {
+    color: white !important;
+    background-color: $primary;
+    transition: none;
+    border-color: $primary;
+    padding: 0;
+    transition: all 50ms ease;
+
+  }
+  &:active,
+  &:focus {
+    color: black !important;
+    background-color: $primary !important;
+    box-shadow: 0 0 0 0rem rgba(0,0,0,0) !important;
+  }
+}

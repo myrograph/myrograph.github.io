@@ -59,7 +59,7 @@ void main()
 
   uv += iResolution.yx;
   //gl_FragColor = vec4(uv, 0.0, 1.0);
-  uv *= .2;
+  uv *= .1;
   
   vec3 col = vec3(0.0);
 

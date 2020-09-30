@@ -8,13 +8,15 @@ const size = {x: 800, y: 600}
 
 const hasWebGL = isWebglSupported()
 
-let mousePos
+let pilotPoint
 let dropPos = []
 let speed = 0
 let smoothSpeed = 0
+let timeSinceLastMouseMove = 0;
 
 let theShader
 let pxDensity = 1
+let fixedFrameRate = 60
 
 function preload() 
 {
@@ -33,32 +35,33 @@ function setup()
   cnv.parent(parentDiv)
   background('#111A21')
   pixelDensity(pxDensity)
-  frameRate(60)
+  frameRate(fixedFrameRate)
   noStroke()
 
   if (!hasWebGL) return;
 
   mouseX = size.x * .5
   mouseY = size.y * .5
-  mousePos = createVector(mouseX, mouseY)
+  pilotPoint = createVector(mouseX, mouseY)
   dropPos = []
   for (i=0; i<5; i++) 
-    dropPos.push(mousePos)
+    dropPos.push(pilotPoint)
 }
 
 function draw() 
 {
   if (!hasWebGL) return;
-
   shader(theShader)
   
-  speed = Math.min(Math.abs(mousePos.x - mouseX) + Math.abs(mousePos.y - mouseY), 50)
+  let currPilotPoint = createVector(mouseX, mouseY)
+
+  speed = Math.min(Math.abs(pilotPoint.x - mouseX) + Math.abs(pilotPoint.y - mouseY), 50)
   if (speed > smoothSpeed) smoothSpeed = lerp(smoothSpeed, speed, .1)
   else smoothSpeed = lerp(smoothSpeed, speed, .02)
-  mousePos.x = mouseX
-  mousePos.y = mouseY
+  pilotPoint.x = mouseX
+  pilotPoint.y = mouseY
 
-  dropPos[0] = p5.Vector.lerp(dropPos[0], mousePos, .5)
+  dropPos[0] = p5.Vector.lerp(dropPos[0], pilotPoint, .5)
   for (let i=1; i<dropPos.length; i++) 
     setTimeout(function(newPos) 
     { 
