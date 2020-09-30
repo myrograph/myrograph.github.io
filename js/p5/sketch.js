@@ -14,7 +14,7 @@ let speed = 0
 let smoothSpeed = 0
 
 let theShader
-let pxDensity = .5
+let pxDensity = 1
 
 function preload() 
 {
@@ -33,6 +33,7 @@ function setup()
   cnv.parent(parentDiv)
   background('#111A21')
   pixelDensity(pxDensity)
+  frameRate(60)
   noStroke()
 
   if (!hasWebGL) return;

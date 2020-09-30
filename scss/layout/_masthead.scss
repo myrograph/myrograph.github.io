@@ -21,22 +21,41 @@ header.masthead {
   background-attachment: scroll;
   background-position: center center;
   background-size: cover;
-  //text-shadow: 0px 0px 21px rgba(0, 0, 0, 1);
-  .shadow-box {
-      background-color: rgba(0,0,0,.5);
-      box-shadow: 0px 0px 46px 0px rgba(0,0,0,1);
+  height: 100vh;
+  .container {
+    height:100%;
+  }
+ .shadow-box {
+  margin: auto;
+    background-color: rgba(0,0,0,.66);
+    padding: 40px 25px 50px 25px;
+  }
+  img {
+    margin-bottom: 25px;
   }
   .intro-text {
-    padding-top: 80px;
+    padding-top: 60px;
     padding-bottom: 80px;
+    height:100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: $gray-100;
     .intro-lead-in {
       font-size: 30px;
       font-family: Montserrat;
       font-weight: 700;
       line-height: 22px;
-      margin-bottom: 50px;
+      margin-bottom: 25px;
     }
-    .intro-heading {
+    .intro-smalltext {
+      font-size: 22px;
+      color: $gray-500;
+      font-style: italic;
+      text-transform: none;
+      font-family: 'Droid Serif', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+    }
+    .intro-heading { // osef
       font-size: 40px;
       font-weight: 700;
       line-height: 50px;
@@ -44,7 +63,7 @@ header.masthead {
       @include heading-font;
       word-break: break-word;
     }
-    .intro-links{
+    .intro-links{ // osef
       margin-bottom:130px;
       .intro-link {
         margin-left: 30px;
@@ -72,12 +91,11 @@ header.masthead {
 @media(min-width:768px) {
   header.masthead {
     .intro-text {
-      padding-top: 160px;
-      padding-bottom: 180px;
+      padding-top: 120px;
+      padding-bottom: 160px;
       .intro-lead-in {
         font-size: 40px;
         line-height: 40px;
-        margin-bottom: 25px;
       }
       .intro-heading {
         font-size: 75px;

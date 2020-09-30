@@ -42,6 +42,7 @@ void main()
 
   // Normalized pixel coordinates (from 0 to 1)
   vec2 uv = gl_FragCoord.xy / iResolution.yy / vec2(iPixelDensity);
+  //uv-=iDrop0.xy/iResolution.xy/8.0;
 
   float d0 = length(uv - iDrop0.xy / iResolution.yy) * 2.0;
   d0 = 1.0 - sqrt(smoothstep(0.0, .5 + .04 * sin(t.x * 10.0), d0));
@@ -54,10 +55,12 @@ void main()
   float d4 = length(uv - iDrop4.xy / iResolution.yy) * 2.0;
   d4 = .5 - .5 * sqrt(smoothstep(0.0, .3 + .015 * sin(t.x * 10.0), d4));
 
-  float dist = 1.8 - (d0 + d1 + d2 + d3 + d4) / 5.0 * iDropDiameter * .0002;
+  float dist = 1.8 - (d0 + d1 + d2 + d3 + d4) / 5.0 * iDropDiameter * .0001;
 
-  uv -= iResolution.yx;
-  uv *= .1;
+  uv += iResolution.yx;
+  //gl_FragColor = vec4(uv, 0.0, 1.0);
+  uv *= .2;
+  
   vec3 col = vec3(0.0);
 
 
