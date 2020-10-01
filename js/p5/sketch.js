@@ -16,7 +16,7 @@ let timeSinceLastMouseMove = 0;
 
 let theShader
 let pxDensity = 1
-let fixedFrameRate = 60
+let fixedFrameRate = 30
 
 function preload() 
 {
@@ -38,7 +38,12 @@ function setup()
   frameRate(fixedFrameRate)
   noStroke()
 
-  if (!hasWebGL) return;
+  if (!hasWebGL)
+  {
+    console.log("webGL not supported on this platform")
+    return;
+  }
+  console.log("cc")
 
   mouseX = size.x * .5
   mouseY = size.y * .5
@@ -48,6 +53,7 @@ function setup()
     dropPos.push(pilotPoint)
 }
 
+// todo : stop rendering when scrolled out
 function draw() 
 {
   if (!hasWebGL) return;
@@ -69,7 +75,8 @@ function draw()
     }, 30, dropPos[i-1])
   theShader.setUniform("iResolution", [width, height])
   theShader.setUniform("iFrame", frameCount)
-    for (i=0; i<5; i++)
+  theShader.setUniform("iFrameRate", fixedFrameRate)
+  for (i=0; i<5; i++)
     theShader.setUniform("iDrop"+i, [dropPos[i].x, (height - dropPos[i].y)])
   theShader.setUniform("iDropDiameter", smoothSpeed)
   theShader.setUniform("iPixelDensity", pxDensity)
