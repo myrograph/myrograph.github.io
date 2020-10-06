@@ -8,15 +8,40 @@ const size = {x: 800, y: 600}
 
 const hasWebGL = isWebglSupported()
 
-let pilotPoint
-let dropPos = []
-let speed = 0
-let smoothSpeed = 0
-let timeSinceLastMouseMove = 0;
-
 let theShader
 let pxDensity = 1
 let fixedFrameRate = 30
+
+class Trail
+{
+  constructor(length, initialX, initialY)
+  {
+    this.pilotPoint = createVector(initialX, initialY)
+    this.smoothSpeed = 0;
+    this.length = length
+    this.dropPos = []
+    for (let i = 0; i < this.length; i++) 
+      this.dropPos.push(this.pilotPoint)
+  }
+
+  update(newX, newY)
+  {
+    const speed = Math.min(Math.abs(this.pilotPoint.x - mouseX) + Math.abs(this.pilotPoint.y - mouseY), 50)
+    this.smoothSpeed = lerp(this.smoothSpeed, speed, (speed > this.smoothSpeed ? .1 : .02) * 60 / fixedFrameRate)
+    this.pilotPoint.x = newX
+    this.pilotPoint.y = newY
+
+    this.dropPos[0] = p5.Vector.lerp(this.dropPos[0], this.pilotPoint, .5 * 60 / fixedFrameRate)
+    const that = this
+    for (let i = 1; i < this.dropPos.length; i++)
+      setTimeout(function(newPos) 
+      { 
+        that.dropPos[i] = p5.Vector.lerp(that.dropPos[i], newPos, .2 * 60 / fixedFrameRate)
+      }, 30, that.dropPos[i - 1])
+  }
+}
+
+let trail 
 
 function preload() 
 {
@@ -26,10 +51,8 @@ function preload()
 
 function setup() 
 {
-
   size.x = document.getElementById(parentDiv).offsetWidth
   size.y = document.getElementById(parentDiv).offsetHeight
-
 
   const cnv = createCanvas(size.x, size.y, WEBGL)
   cnv.parent(parentDiv)
@@ -39,18 +62,11 @@ function setup()
   noStroke()
 
   if (!hasWebGL)
-  {
-    console.log("webGL not supported on this platform")
     return;
-  }
-  console.log("cc")
 
   mouseX = size.x * .5
   mouseY = size.y * .5
-  pilotPoint = createVector(mouseX, mouseY)
-  dropPos = []
-  for (i=0; i<5; i++) 
-    dropPos.push(pilotPoint)
+  trail =  new Trail(5, mouseX, mouseY)
 }
 
 // todo : stop rendering when scrolled out
@@ -59,26 +75,14 @@ function draw()
   if (!hasWebGL) return;
   shader(theShader)
   
-  let currPilotPoint = createVector(mouseX, mouseY)
+  trail.update(mouseX, mouseY)
 
-  speed = Math.min(Math.abs(pilotPoint.x - mouseX) + Math.abs(pilotPoint.y - mouseY), 50)
-  if (speed > smoothSpeed) smoothSpeed = lerp(smoothSpeed, speed, .1)
-  else smoothSpeed = lerp(smoothSpeed, speed, .02)
-  pilotPoint.x = mouseX
-  pilotPoint.y = mouseY
-
-  dropPos[0] = p5.Vector.lerp(dropPos[0], pilotPoint, .5)
-  for (let i=1; i<dropPos.length; i++) 
-    setTimeout(function(newPos) 
-    { 
-      dropPos[i] = p5.Vector.lerp(dropPos[i], newPos, .2) 
-    }, 30, dropPos[i-1])
   theShader.setUniform("iResolution", [width, height])
   theShader.setUniform("iFrame", frameCount)
   theShader.setUniform("iFrameRate", fixedFrameRate)
-  for (i=0; i<5; i++)
-    theShader.setUniform("iDrop"+i, [dropPos[i].x, (height - dropPos[i].y)])
-  theShader.setUniform("iDropDiameter", smoothSpeed)
+  for (i = 0; i < trail.length; i++)
+    theShader.setUniform("iDrop" + i, [trail.dropPos[i].x, (height - trail.dropPos[i].y)])
+  theShader.setUniform("iDropDiameter", trail.smoothSpeed)
   theShader.setUniform("iPixelDensity", pxDensity)
 
   rect(0,0,width, height)
