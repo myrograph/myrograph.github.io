@@ -17,6 +17,7 @@ uniform vec2 iDrop3;
 uniform vec2 iDrop4;
 uniform float iDropDiameter;
 uniform float iPixelDensity;
+uniform float iSimplifyAmount;
 
 float hash(float n) 
   {return fract(sin(n) * 43758.5453);}
@@ -70,7 +71,8 @@ void main()
   vec3 col = vec3(.0);
   for (int i = 0; i < 16; i++) 
   {
-    float i2 = float(i) * 1.0;
+    float i2 = float(i) * iSimplifyAmount;
+    if (i2 > 16.0) break;
     col.r += noise(uv.xyy / dist * (12.0 + i2) + col.rgb + t * sign(sin(i2 / 3.0)));
     col.g += noise(uv.xyx / dist * (12.0 + i2) + col.rgb + t * sign(sin(i2 / 3.0)));
     col.b += noise(uv.yyx / dist * (12.0 + i2) + col.rgb + t * sign(sin(i2 / 3.0)));
@@ -78,13 +80,14 @@ void main()
 
   for (int i = 0; i < 16; i++) 
   {
-    float i2 = float(i) * 1.0;
+    float i2 = float(i) * iSimplifyAmount;
+    if (i2 > 16.0) break;
     col.r += noise(uv.xyy * dist * (32.0) + col.rgb + t * sign(sin(i2 / 3.0)));
     col.g += noise(uv.xyx * dist * (32.0) + col.rgb + t * sign(sin(i2 / 3.0)));
     col.b += noise(uv.yyx * dist * (32.0) + col.rgb + t * sign(sin(i2 / 3.0)));
   }
 
-  col.rgb /= 32.0;
+  col.rgb *= iSimplifyAmount * iSimplifyAmount / 32.0;
   col.rgb = mix(col.rgb, normalize(col.rgb) * 2.0, 1.0);
   col.rgb = mix(col.rgb, vec3(0), dist * 8.0) * 1.0;
   
