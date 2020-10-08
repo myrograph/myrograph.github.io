@@ -45,9 +45,16 @@ float noise(vec3 p){
     return (o4.y * d.y + o4.x * (1.0 - d.y))*2.0-1.0;
 }
 
+vec2 rotate(vec2 v, float a) {
+  float s = sin(a);
+  float c = cos(a);
+  mat2 m = mat2(c, -s, s, c);
+  return m * v;
+}
+
 void main()
 {
-  vec3 t = .8 * (float(iFrame+2000) * 60.0 / iFrameRate * vec3(1.0, 2.0, 3.0) / 1.0) / 1000.0;
+  vec3 t = .5 * (float(iFrame+2000) * 60.0 / iFrameRate * vec3(1.0, 2.0, 3.0) / 1.0) / 1000.0;
   
   // Normalized pixel coordinates (from 0 to 1)
   vec2 uv = gl_FragCoord.xy / iResolution.yy / vec2(iPixelDensity);
@@ -63,9 +70,10 @@ void main()
   float d4 = length(uv - iDrop4.xy / iResolution.yy) * 2.0;
   d4 = .5 - .5 * sqrt(smoothstep(.0, .3 + .015 * sin(t.x * 10.0), d4));
 
-  float dist = 1.8 - (d0 + d1 + d2 + d3 + d4) / 5.0 * iDropDiameter * .01;
+  float dist = 1.8 - (d0 + d1 + d2 + d3 + d4) * iDropDiameter * .002;
 
-  uv = uv * .1 + vec2(1.0, 2.0); // zoom level
+  uv = uv * .1; // zoom level
+  uv += vec2(-1.0, 2.0) + vec2(.02, .01) * sin(t.xy * 5.0);
 
   vec3 col = vec3(.0);
   for (int i = 0; i < 6; i++) 

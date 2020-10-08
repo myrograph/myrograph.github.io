@@ -31,32 +31,32 @@ class Settings
   {
     this.size = {x: 800, y: 600}
     this.hasWebGL = isWebglSupported()
-    this.frameRate = 60
+    this.targetFrameRate = 60
     this.pxDensity = 1
-    this.previousTime = performance.now()
-    this.smoothElapsedTime = 1
+    this.previousTime =  performance.now() * .001
+    this.smoothDeltaTime = 1
   }
 
   update()
   {
-    const t = performance.now()
-    const maximumFrameTime = 1000 / this.frameRate
-    const elapsed = t - this.previousTime
-    if  (elapsed < 1000) this.smoothElapsedTime = min(lerp(this.smoothElapsedTime, elapsed, .01), elapsed)
+    const t = performance.now() * .001
+    const maximumFrameTime = 1 / this.TargetFrameRate
+    const deltaTime = t - this.previousTime
     this.previousTime = t
-    if (this.smoothElapsedTime > maximumFrameTime * 1.1)
+    if  (deltaTime < 1)
+      this.smoothDeltaTime = min(lerp(this.smoothDeltaTime, deltaTime, .01), deltaTime)
+    if (this.smoothDeltaTime > maximumFrameTime * 1.1)
     {
-      if (this.frameRate > 30) this.frameRate = 30
+      if (this.TargetFrameRate > 30) this.TargetFrameRate = 30
       else 
         {
           this.pxDensity *= .9
-          this.frameRate = 60
+          this.TargetFrameRate = 60
         }
-      this.smoothElapsedTime = 1
-      frameRate(this.frameRate)
+      this.smoothDeltaTime = 1
+      frameRate(this.TargetFrameRate)
       pixelDensity(this.pxDensity)
-      console.log("optim " + this.frameRate +  " " + this.pxDensity)
-
+      console.log("optim " + this.TargetFrameRate +  " " + this.pxDensity)
     }
   }
 }
@@ -79,17 +79,17 @@ class Trail
   update(newX, newY)
   {
     const speed = Math.min(Math.abs(this.pilotPoint.x - mouseX) + Math.abs(this.pilotPoint.y - mouseY), 50)
-    this.smoothSpeed = lerp(this.smoothSpeed, speed, (speed > this.smoothSpeed ? .1 : .02) * 60 / settings.frameRate)
+    this.smoothSpeed = lerp(this.smoothSpeed, speed, (speed > this.smoothSpeed ? .1 : .02) * 60 / settings.targetFrameRate)
     this.pilotPoint.x = newX
     this.pilotPoint.y = newY
 
-    //this.dropPos[0] = p5.Vector.lerp(this.dropPos[0], this.pilotPoint, .5 * 60 / settings.frameRate)
+    //this.dropPos[0] = p5.Vector.lerp(this.dropPos[0], this.pilotPoint, .5 * 60 / settings.TargetFrameRate)
     this.dropPos[0] = this.pilotPoint
     const that = this
     for (let i = 1; i < this.dropPos.length; i++)
       setTimeout(function(newPos) 
       { 
-        that.dropPos[i] = p5.Vector.lerp(that.dropPos[i], newPos, .2 * 60 / settings.frameRate)
+        that.dropPos[i] = p5.Vector.lerp(that.dropPos[i], newPos, .2 * 60 / settings.targetFrameRate)
       }, 30, that.dropPos[i - 1])
   }
 }
@@ -113,7 +113,7 @@ function setup()
   cnv.parent(parentDiv)
   background('#111A21')
   pixelDensity(settings.pxDensity)
-  frameRate(settings.frameRate)
+  frameRate(settings.targetFrameRate)
   noStroke()
 
   if (!settings.hasWebGL)
@@ -136,7 +136,7 @@ function draw()
 
   theShader.setUniform("iResolution", [width, height])
   theShader.setUniform("iFrame", frameCount)
-  theShader.setUniform("iFrameRate", settings.frameRate)
+  theShader.setUniform("iFrameRate", settings.targetFrameRate)
   for (i = 0; i < trail.length; i++)
     theShader.setUniform("iDrop" + i, [trail.dropPos[i].x, (height - trail.dropPos[i].y)])
   theShader.setUniform("iDropDiameter", trail.smoothSpeed)
