@@ -45,7 +45,7 @@ class Settings
     if (this.smoothDeltaTime > maximumFrameTime * 1.3)
     {
       if (this.targetFrameRate > 30)
-        this.targetFrameRate = 30
+        this.targetFrameRate -= 15
       else if (this.pxDensity > .51)
         this.pxDensity -= .1
       pixelDensity(this.pxDensity)
