@@ -34,29 +34,23 @@ class Settings
     this.targetFrameRate = 60
     this.pxDensity = 1
     this.previousTime =  performance.now() * .001
-    this.smoothDeltaTime = 1
+    this.smoothDeltaTime = 0
   }
 
   update()
   {
-    const t = performance.now() * .001
-    const maximumFrameTime = 1 / this.TargetFrameRate
-    const deltaTime = t - this.previousTime
-    this.previousTime = t
-    if  (deltaTime < 1)
-      this.smoothDeltaTime = min(lerp(this.smoothDeltaTime, deltaTime, .01), deltaTime)
-    if (this.smoothDeltaTime > maximumFrameTime * 1.1)
+    const maximumFrameTime = 1000.0 / this.targetFrameRate
+    if  (deltaTime < 1000)
+      this.smoothDeltaTime = min(lerp(this.smoothDeltaTime, deltaTime, .1), deltaTime)
+    if (this.smoothDeltaTime > maximumFrameTime * 1.3)
     {
-      if (this.TargetFrameRate > 30) this.TargetFrameRate = 30
-      else 
-        {
-          this.pxDensity *= .9
-          this.TargetFrameRate = 60
-        }
-      this.smoothDeltaTime = 1
-      frameRate(this.TargetFrameRate)
+      if (this.targetFrameRate > 30)
+        this.targetFrameRate = 30
+      else if (this.pxDensity > .51)
+        this.pxDensity -= .1
       pixelDensity(this.pxDensity)
-      console.log("optim " + this.TargetFrameRate +  " " + this.pxDensity)
+      frameRate(this.targetFrameRate)
+      console.log("Dynamic performance optimization:\n caping fps at " + this.targetFrameRate +  ", resolution at " + (this.pxDensity * 100) + "%")
     }
   }
 }

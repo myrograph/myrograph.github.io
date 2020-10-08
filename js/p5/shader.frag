@@ -70,7 +70,7 @@ void main()
   float d4 = length(uv - iDrop4.xy / iResolution.yy) * 2.0;
   d4 = .5 - .5 * sqrt(smoothstep(.0, .3 + .015 * sin(t.x * 10.0), d4));
 
-  float dist = 1.8 - (d0 + d1 + d2 + d3 + d4) * iDropDiameter * .002;
+  float dist = 1.8 - (d0 + d1 + d2 + d3 + d4) * iDropDiameter * .001;
 
   uv = uv * .1; // zoom level
   uv += vec2(-1.0, 2.0) + vec2(.02, .01) * sin(t.xy * 5.0);
