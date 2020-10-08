@@ -33,7 +33,6 @@ class Settings
     this.hasWebGL = isWebglSupported()
     this.frameRate = 60
     this.pxDensity = 1
-    this.simplifyAmount = 1
     this.previousTime = performance.now()
     this.smoothElapsedTime = 1
   }
@@ -45,17 +44,19 @@ class Settings
     const elapsed = t - this.previousTime
     if  (elapsed < 1000) this.smoothElapsedTime = min(lerp(this.smoothElapsedTime, elapsed, .01), elapsed)
     this.previousTime = t
-    if (this.smoothElapsedTime > maximumFrameTime * 1.4)
+    if (this.smoothElapsedTime > maximumFrameTime * 1.1)
     {
       if (this.frameRate > 30) this.frameRate = 30
       else 
         {
           this.pxDensity *= .9
-          this.simplifyAmount += .5
           this.frameRate = 60
         }
+      this.smoothElapsedTime = 1
       frameRate(this.frameRate)
       pixelDensity(this.pxDensity)
+      console.log("optim " + this.frameRate +  " " + this.pxDensity)
+
     }
   }
 }
@@ -82,7 +83,8 @@ class Trail
     this.pilotPoint.x = newX
     this.pilotPoint.y = newY
 
-    this.dropPos[0] = p5.Vector.lerp(this.dropPos[0], this.pilotPoint, .5 * 60 / settings.frameRate)
+    //this.dropPos[0] = p5.Vector.lerp(this.dropPos[0], this.pilotPoint, .5 * 60 / settings.frameRate)
+    this.dropPos[0] = this.pilotPoint
     const that = this
     for (let i = 1; i < this.dropPos.length; i++)
       setTimeout(function(newPos) 
@@ -139,7 +141,6 @@ function draw()
     theShader.setUniform("iDrop" + i, [trail.dropPos[i].x, (height - trail.dropPos[i].y)])
   theShader.setUniform("iDropDiameter", trail.smoothSpeed)
   theShader.setUniform("iPixelDensity", settings.pxDensity)
-  theShader.setUniform("iSimplifyAmount", settings.simplifyAmount)
 
   rect(0,0,width, height)
 }
