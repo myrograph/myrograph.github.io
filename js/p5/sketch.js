@@ -35,6 +35,7 @@ class Settings
     this.pxDensity = 1
     this.previousTime =  performance.now() * .001
     this.smoothDeltaTime = 0
+    this.isCanvasInView = true
   }
 
   update()
@@ -50,12 +51,21 @@ class Settings
         this.pxDensity -= .1
       pixelDensity(this.pxDensity)
       frameRate(this.targetFrameRate)
-      console.log("Dynamic performance optimization:\n caping fps at " + this.targetFrameRate +  ", resolution at " + (this.pxDensity * 100) + "%")
+      console.log("Dynamic WebGL performance optimization:\n caping fps at " + this.targetFrameRate +  ", resolution at " + (this.pxDensity * 100) + "%")
     }
   }
 }
 
 let settings = new Settings(30, 1)
+
+canvasObserver = new IntersectionObserver(function(entries)
+{
+  if(entries[0].isIntersecting === true)
+    settings.isCanvasInView = true
+  else
+    settings.isCanvasInView = false
+}, { threshold: [0] })
+canvasObserver.observe(document.querySelector("#masthead"))
 
 class Trail
 {
@@ -121,11 +131,10 @@ function setup()
 // todo : stop rendering when scrolled out
 function draw()
 {
-  if (!settings.hasWebGL) return;
+  if (!settings.hasWebGL || !settings.isCanvasInView)
+    return;
   shader(theShader)
-  
   settings.update()
-
   trail.update(mouseX, mouseY)
 
   theShader.setUniform("iResolution", [width, height])
