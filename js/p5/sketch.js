@@ -65,7 +65,7 @@ canvasObserver = new IntersectionObserver(function(entries)
   else
     settings.isCanvasInView = false
 }, { threshold: [0] })
-canvasObserver.observe(document.querySelector("#masthead"))
+canvasObserver.observe(document.getElementById(parentDiv))
 
 class Trail
 {
