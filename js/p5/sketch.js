@@ -2,7 +2,7 @@
 // https://glitch.com/~recursive-noise-experiment
 // cf https://itp-xstory.github.io/p5js-shaders/#/./docs/why-use-shaders
 
-const parentDiv = 'masthead'
+const parentDiv = document.getElementById('masthead')
 let theShader
 
 function isWebglSupported()
@@ -65,7 +65,7 @@ var canvasObserver = new IntersectionObserver(function(entries)
   else
     settings.isCanvasInView = false
 }, { threshold: [0] })
-canvasObserver.observe(document.getElementById(parentDiv))
+canvasObserver.observe(parentDiv)
 
 class Trail
 {
@@ -110,11 +110,11 @@ function preload()
 
 function setup()
 {
-  settings.size.x = document.getElementById(parentDiv).offsetWidth
-  settings.size.y = document.getElementById(parentDiv).offsetHeight
+  settings.size.x = parentDiv.offsetWidth
+  settings.size.y = parentDiv.offsetHeight
 
   const cnv = createCanvas(settings.size.x, settings.size.y, WEBGL)
-  cnv.parent(parentDiv)
+  parentDiv.prepend(cnv)
   background('#111A21')
   pixelDensity(settings.pxDensity)
   frameRate(settings.targetFrameRate)
@@ -123,6 +123,7 @@ function setup()
   if (!settings.hasWebGL)
     return;
 
+  parentDiv.style["background-image"] = "none"
   mouseX = settings.size.x * .5
   mouseY = settings.size.y * .5
   trail =  new Trail(5, mouseX, mouseY)
@@ -150,7 +151,7 @@ function draw()
 
 function windowResized()
 {
-  settings.size.x = document.getElementById(parentDiv).offsetWidth
-  settings.size.y = document.getElementById(parentDiv).offsetHeight
+  settings.size.x = parentDiv.offsetWidth
+  settings.size.y = parentDiv.offsetHeight
   resizeCanvas(settings.size.x, settings.size.y)
 }
