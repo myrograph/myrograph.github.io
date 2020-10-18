@@ -114,7 +114,7 @@ function setup()
   settings.size.y = parentDiv.offsetHeight
 
   const cnv = createCanvas(settings.size.x, settings.size.y, WEBGL)
-  parentDiv.prepend(cnv)
+  cnv.parent(parentDiv)
   background('#111A21')
   pixelDensity(settings.pxDensity)
   frameRate(settings.targetFrameRate)
