@@ -58,7 +58,7 @@ class Settings
 
 let settings = new Settings(30, 1)
 
-canvasObserver = new IntersectionObserver(function(entries)
+var canvasObserver = new IntersectionObserver(function(entries)
 {
   if(entries[0].isIntersecting === true)
     settings.isCanvasInView = true
