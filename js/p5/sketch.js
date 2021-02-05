@@ -3,7 +3,7 @@
 // cf https://itp-xstory.github.io/p5js-shaders/#/./docs/why-use-shaders
 
 
-var detectGpu = require("detect-gpu")
+// var detectGpu = require("detect-gpu")
 /*detectGpu.getGPUTier()
 console.log(detectGpu.getGPUTier())
 */
