@@ -2,6 +2,11 @@
 // https://glitch.com/~recursive-noise-experiment
 // cf https://itp-xstory.github.io/p5js-shaders/#/./docs/why-use-shaders
 
+
+var detectGpu = require("detect-gpu")
+/*detectGpu.getGPUTier()
+console.log(detectGpu.getGPUTier())
+*/
 const parentDiv = document.getElementById('masthead')
 let theShader
 
